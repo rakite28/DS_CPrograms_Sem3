@@ -16,6 +16,23 @@ int Binarysearch(int a[],int n, int x)
     }
     return -1;
 }
+void BubbleSort(int a[],int n)
+{
+    int i,j,t;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n-1-i;j++)
+        {
+            // if(a[j]>a[j+1]) ascending order
+            if(a[j]<a[j+1])//descending order
+            {
+                t=a[j];
+                a[j]=a[j+1];
+                a[j+1]=t;
+            }
+        }
+    }
+}
 
 void main()
 {
@@ -30,6 +47,8 @@ void main()
     }
     printf("Enter element to be searched");
     scanf("%d",&x);
+
+    BubbleSort(a,n);
 
     i=Binarysearch(a,n,x);
     if(i==-1)
