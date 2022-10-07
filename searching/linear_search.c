@@ -18,7 +18,7 @@ int LinearSearch(int a[],int n,int x)
 void main()
 {
     int i,n,a[100],x;
-    printf("Ente a no.");
+    printf("Enter a no.");
     scanf("%d",&n);
     printf("Enter a array\n");
     for(i=0;i<n;i++)
