@@ -307,6 +307,8 @@ void main()
 	        break;
 	    case 9: start=delete_after(start);
 	        break;
+        case 10:start=delete_before(start);
+            break;
 	    case 11: start=delete_node(start);
 	        break;
 	    case 12: start=delete_list(start);

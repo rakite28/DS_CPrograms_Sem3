@@ -7,6 +7,7 @@ struct node
 {
     int data;
     struct node *next;
+    struct node *prev;
 };
 
 struct node *start =NULL;
@@ -26,7 +27,7 @@ struct node * sort(struct node *);
 
 struct node * create_ll(struct node *)
 {
-    struct node *nn,*ptr;
+    struct node *nn,*ptr,*pp;
     int data;
     printf("Enter -1 to stop");
     printf("enter value");
@@ -36,6 +37,7 @@ struct node * create_ll(struct node *)
         nn=(struct node *)malloc(sizeof(struct node *));
         nn->data=data;
         nn->next=NULL;
+        nn->prev=NULL;
         if(start==NULL)
         {
         start=nn;
@@ -43,10 +45,13 @@ struct node * create_ll(struct node *)
         else
         {
             ptr=start;
+            pp=start;
             while(ptr->next!=NULL)
             {
+                pp=ptr;
                 ptr=ptr->next;
             }
+            ptr->prev=pp;
             ptr->next=nn;
         }
         printf("Enter a no.");
@@ -75,6 +80,7 @@ struct node * insert_beg(struct node *)
     nn=(struct node *)malloc(sizeof(struct node));
     nn->data=data;
     nn->next=start;
+    nn->prev=NULL;
     start=nn;
     return start;
 }
@@ -95,6 +101,7 @@ struct node * insert_end(struct node *)
     ptr=ptr->next;
     }
     ptr->next=nn;
+    nn->prev=ptr;
     return start;
 }
 
@@ -116,7 +123,9 @@ struct node * insert_before(struct node *)
         ptr=ptr->next;
     }
     pp->next=nn;
+    nn->prev=pp;
     nn->next=ptr;
+    ptr->prev=nn;
     return start;
 }
 
@@ -138,7 +147,9 @@ struct node * insert_after(struct node *)
         ptr=ptr->next;
     }
     pp->next=nn;
+    nn->prev=pp;
     nn->next=ptr;
+    ptr->prev=nn;
     return start;
 }
 
@@ -149,6 +160,7 @@ struct node * delete_beg(struct node *)
     struct node *ptr;
     ptr=start;
     start=start->next;
+    start->prev=NULL;
     free(ptr);
     return start;
 }
@@ -169,9 +181,10 @@ struct node * delete_end(struct node *)
 
 struct node * delete_after(struct node *)
 {
-    struct node *ptr,*pp;
+    struct node *ptr,*pp,*pop;
     ptr=start;
     pp=start;
+    pop=start->next;
     int val;
     printf("Enter value after to delete");
     scanf("%d",&val);
@@ -179,8 +192,10 @@ struct node * delete_after(struct node *)
     {
         pp=ptr;
         ptr=ptr->next;
+        pop=pop->next;
     }
     pp->next=ptr->next;
+    pop->prev=pp;
     free(ptr);
     return start;
 }
@@ -205,15 +220,17 @@ struct node * delete_before(struct node*)
         pop=pop->next;
     }
     pp->next=pop;
+    pop->prev=pp;
     free(ptr);
     return start;
 }
 
 struct node * delete_node(struct node *)
 {
-    struct node *ptr,*pp;
+    struct node *ptr,*pp,*pop;
     ptr=start;
     pp=start;
+    pop=start->next;
     int val;
     printf("Enter value after to delete");
     scanf("%d",&val);
@@ -221,8 +238,10 @@ struct node * delete_node(struct node *)
     {
         pp=ptr;
         ptr=ptr->next;
+        pop=pop->next;
     }
     pp->next=ptr->next;
+    pop->prev=pp;
     free(ptr);
     return start;
 }
