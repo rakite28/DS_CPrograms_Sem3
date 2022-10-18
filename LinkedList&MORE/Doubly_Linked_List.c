@@ -184,7 +184,6 @@ struct node * delete_after(struct node *)
     struct node *ptr,*pp,*pop;
     ptr=start;
     pp=start;
-    pop=start->next;
     int val;
     printf("Enter value after to delete");
     scanf("%d",&val);
@@ -192,9 +191,9 @@ struct node * delete_after(struct node *)
     {
         pp=ptr;
         ptr=ptr->next;
-        pop=pop->next;
     }
-    pp->next=ptr->next;
+    pop=ptr->next;
+    pp->next=pop;
     pop->prev=pp;
     free(ptr);
     return start;
@@ -212,13 +211,12 @@ struct node * delete_before(struct node*)
     {
         return start;
     }
-    pop=start->next;
     while(pop->data!=val)
     {
         pp=ptr;
-        ptr=pop;
-        pop=pop->next;
+        ptr=ptr->next;
     }
+    pop=ptr->next;
     pp->next=pop;
     pop->prev=pp;
     free(ptr);

@@ -7,6 +7,7 @@ struct node
 {
     int data;
     struct node *next;
+    struct node *prev;
 };
 
 struct node *start =NULL;
@@ -57,6 +58,7 @@ struct node * create_ll(struct node *)
         ptr=ptr->next;
     }
     ptr->next=start;
+    nn->prev=ptr;
     return start;  
 }
 
@@ -73,7 +75,8 @@ struct node *display(struct node *)
 
 struct node *insert_beg(struct node *)
 {
-    struct node *nn,*ptr=start;
+    struct node *nn,*ptr;
+    ptr=start;
     int data;
     printf("Enter the data");
     scanf("%d",&data);
@@ -87,6 +90,7 @@ struct node *insert_beg(struct node *)
     }
     start=nn;
     ptr->next=start;
+    nn->prev=ptr;
     return start;
 }
 
@@ -106,6 +110,7 @@ struct node *insert_end(struct node *)
     ptr=ptr->next;
     }
     ptr->next=nn;
+    nn->prev=ptr;
     return start;
 }
 
@@ -128,6 +133,8 @@ struct node *insert_before(struct node *)
     }
     pp->next=nn;
     nn->next=ptr;
+    ptr->prev=nn;
+    nn->prev=pp;
     return start;
 }
 
@@ -149,7 +156,9 @@ struct node *insert_after(struct node *)
         ptr=ptr->next;
     }
     pp->next=nn;
+    nn->prev=pp;
     nn->next=ptr;
+    ptr->prev=nn;
     return start;
 }
 
@@ -159,6 +168,12 @@ struct node *delete_beg(struct node *)
 {
     struct node *ptr;
     ptr=start;
+    while(ptr->next!=start)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=start->next;
+    ptr=start;
     start=start->next;
     free(ptr);
     ptr=start;
@@ -166,7 +181,7 @@ struct node *delete_beg(struct node *)
     {
         ptr=ptr->next;
     }
-    ptr->next=start;
+    start->prev=ptr;
     return start;
 }
 
@@ -180,13 +195,14 @@ struct node *delete_end(struct node *)
         ptr=ptr->next;
     }
     pp->next=start;
+    start->prev=pp;
     free(ptr);
     return start;
 }
 
 struct node *delete_after(struct node *)
 {
-    struct node *ptr,*pp;
+    struct node *ptr,*pp,*pop;
     ptr=start;
     pp=start;
     int val;
@@ -197,7 +213,9 @@ struct node *delete_after(struct node *)
         pp=ptr;
         ptr=ptr->next;
     }
-    pp->next=ptr->next;
+    pop=ptr->next;
+    pp->next=pop;
+    pop->prev=pp;
     free(ptr);
     return start;
 }
@@ -217,17 +235,18 @@ struct node *delete_before(struct node*)
     while(pop->data!=val)
     {
         pp=ptr;
-        ptr=ptr->next;
+        ptr=pop;
     }
     pop=ptr->next;
     pp->next=pop;
+    pop->prev=pp;
     free(ptr);
     return start;
 }
 
 struct node *delete_node(struct node *)
 {
-    struct node *ptr,*pp;
+    struct node *ptr,*pp,*pop;
     ptr=start;
     pp=start;
     int val;
@@ -238,7 +257,9 @@ struct node *delete_node(struct node *)
         pp=ptr;
         ptr=ptr->next;
     }
-    pp->next=ptr->next;
+    pop=ptr->next;
+    pp->next=pop;
+    pop->prev=pp;
     free(ptr);
     return start;
 }
