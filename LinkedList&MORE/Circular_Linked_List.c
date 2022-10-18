@@ -52,23 +52,28 @@ struct node * create_ll(struct node *)
         printf("Enter a no.");
         scanf("%d",&data);
     }
+    while(ptr->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=start;
     return start;  
 }
 
-struct node * display(struct node *)
+struct node *display(struct node *)
 {
     struct node *ptr;
     ptr=start;
-    while(ptr!=NULL)
+    do
     {
         printf("%d\n",ptr->data);
         ptr=ptr->next;
-    }
+    }while(ptr!=start);
 }
 
-struct node * insert_beg(struct node *)
+struct node *insert_beg(struct node *)
 {
-    struct node *nn;
+    struct node *nn,*ptr=start;
     int data;
     printf("Enter the data");
     scanf("%d",&data);
@@ -76,10 +81,15 @@ struct node * insert_beg(struct node *)
     nn->data=data;
     nn->next=start;
     start=nn;
+    while(ptr->next!=start)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=start;
     return start;
 }
 
-struct node * insert_end(struct node *)
+struct node *insert_end(struct node *)
 {
     struct node *nn,*ptr;
     int val;
@@ -88,9 +98,9 @@ struct node * insert_end(struct node *)
 
     nn=(struct node *)malloc(sizeof(struct node));
     nn->data=val;
-    nn->next=NULL;
+    nn->next=start;
     ptr=start;
-    while(ptr->next!=NULL)
+    while(ptr->next!=start)
     {
     ptr=ptr->next;
     }
@@ -98,7 +108,7 @@ struct node * insert_end(struct node *)
     return start;
 }
 
-struct node * insert_before(struct node *)
+struct node *insert_before(struct node *)
 {
     struct node *nn,*ptr,*pp;
     int val,data;
@@ -120,7 +130,7 @@ struct node * insert_before(struct node *)
     return start;
 }
 
-struct node * insert_after(struct node *)
+struct node *insert_after(struct node *)
 {
     struct node *nn,*ptr,*pp;
     int val,data;
@@ -144,30 +154,36 @@ struct node * insert_after(struct node *)
 
 
 
-struct node * delete_beg(struct node *)
+struct node *delete_beg(struct node *)
 {
     struct node *ptr;
     ptr=start;
     start=start->next;
     free(ptr);
+    ptr=start;
+    while(ptr->next!=start)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=start;
     return start;
 }
 
-struct node * delete_end(struct node *)
+struct node *delete_end(struct node *)
 {
     struct node *ptr,*pp;
     ptr=start;
-    while(ptr->next!=NULL)
+    while(ptr->next!=start)
     {
         pp=ptr;
         ptr=ptr->next;
     }
-    pp->next=NULL;
+    pp->next=start;
     free(ptr);
     return start;
 }
 
-struct node * delete_after(struct node *)
+struct node *delete_after(struct node *)
 {
     struct node *ptr,*pp;
     ptr=start;
@@ -185,7 +201,7 @@ struct node * delete_after(struct node *)
     return start;
 }
 
-struct node * delete_before(struct node*)
+struct node *delete_before(struct node*)
 {
     struct node *pp,*ptr,*pop;
     int val;
@@ -209,7 +225,7 @@ struct node * delete_before(struct node*)
     return start;
 }
 
-struct node * delete_node(struct node *)
+struct node *delete_node(struct node *)
 {
     struct node *ptr,*pp;
     ptr=start;
@@ -227,28 +243,30 @@ struct node * delete_node(struct node *)
     return start;
 }
 
-struct node * delete_list(struct node *)
+struct node *delete_list(struct node *)
 {
-    struct node *ptr;
-    while(start!=NULL)
+    struct node *ptr,*pp;
+    pp=start;
+    do
     {
         ptr=start;  //same as delete_beg function
         start=start->next;
+        pp=ptr;
         free(ptr);
-    }
+    }while(pp->next!=start);
     return start;
 }
 
-struct node * sort_list(struct node *)
+struct node *sort_list(struct node *)
 {
     int t;
     struct node *ptr1,*ptr2;
     ptr1=start;
 
-    while(ptr1->next!=NULL)
+    while(ptr1->next!=start)
     {
         ptr2=ptr1->next;
-        while(ptr2!=NULL)
+        while(ptr2!=start)
         {
             if(ptr1->data>ptr2->data)
             {
