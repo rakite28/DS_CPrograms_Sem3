@@ -23,15 +23,12 @@ struct node *create_ll(struct node *)
         nn=(struct node *)malloc(sizeof(struct node *));
         nn->data=data;
         nn->next=NULL;
-        printf("a");
         if(start==NULL)
         {
-            printf("b");
         start=nn;
         }
         else
         {
-            printf("c");
             ptr=start;
             while(ptr->next!=NULL)
             {
@@ -139,7 +136,7 @@ struct node *delete_beg(struct node *)
     struct node *ptr;
     ptr=start;
     start=start->next;
-    //free(ptr);
+    free(ptr);
     return start;
 }
 
@@ -153,7 +150,7 @@ struct node *delete_end(struct node *)
         ptr=ptr->next;
     }
     pp->next=NULL;
-    //free(ptr);
+    free(ptr);
     return start;
 }
 
@@ -171,7 +168,7 @@ struct node *delete_after(struct node *)
         ptr=ptr->next;
     }
     pp->next=ptr->next;
-    //free(ptr);
+    free(ptr);
     return start;
 }
 
@@ -195,7 +192,7 @@ struct node *delete_before(struct node*)
         pop=pop->next;
     }
     pp->next=pop;
-    //free(ptr);
+    free(ptr);
     return start;
 }
 
@@ -213,7 +210,7 @@ struct node *delete_node(struct node *)
         ptr=ptr->next;
     }
     pp->next=ptr->next;
-    //free(ptr);
+    free(ptr);
     return start;
 }
 
@@ -224,7 +221,7 @@ struct node *delete_list(struct node *)
     {
         ptr=start;  //same as delete_beg function
         start=start->next;
-        //free(ptr);
+        free(ptr);
     }
     return start;
 }
