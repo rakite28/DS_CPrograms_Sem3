@@ -23,8 +23,8 @@ void BubbleSort(int a[],int n)
     {
         for(j=0;j<n-1-i;j++)
         {
-            // if(a[j]>a[j+1]) ascending order
-            if(a[j]<a[j+1])//descending order
+            if(a[j]>a[j+1]) //ascending order
+            //if(a[j]<a[j+1])//descending order
             {
                 t=a[j];
                 a[j]=a[j+1];
