@@ -7,7 +7,9 @@ void SentinelSearch(int a[], int n, int x)
     a[n-1]=x;
     int i=0;
     while(a[i]!=x)
+    {
     i++;
+    }
     a[n-1]=last;
     if(i<n-1 || a[n-1]==x)
     printf("Found at %d index",i);
