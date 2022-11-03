@@ -37,7 +37,7 @@ struct node * create_ll(struct node *)
         nn=(struct node *)malloc(sizeof(struct node *));
         nn->data=data;
         nn->next=NULL;
-        nn->prev=NULL;
+        //nn->prev=NULL;
         if(start==NULL)
         {
         start=nn;
@@ -81,6 +81,7 @@ struct node * insert_beg(struct node *)
     nn->data=data;
     nn->next=start;
     nn->prev=NULL;
+    start->prev=nn;
     start=nn;
     return start;
 }

@@ -1,4 +1,4 @@
- #include<stdio.h>
+#include<stdio.h>
 #include<conio.h>
 #include<stdlib.h>
 #include<malloc.h>
@@ -24,51 +24,47 @@ struct node * delete_node(struct node *);
 struct node * delete_ll(struct node *);
 struct node * sort(struct node *);
 
-struct node * create_ll(struct node *)
+struct node *create_ll(struct node *start)
 {
-    struct node *nn,*ptr;
-    int data;
-    printf("Enter -1 to stop");
-    printf("enter value");
-    scanf("%d",&data);
-    while(data!=-1)
+    struct node *new_node, *ptr;
+    int num;
+    printf("\n Enter –1 to end");
+    printf("\n Enter the data : ");
+    scanf("%d", &num);
+    while(num!=-1)
     {
-        nn=(struct node *)malloc(sizeof(struct node *));
-        nn->data=data;
-        nn->next=NULL;
-        if(start==NULL)
+        new_node = (struct node*)malloc(sizeof(struct node));
+        new_node -> data = num;
+        if(start == NULL)
         {
-        start=nn;
+            new_node -> next = new_node;
+            start = new_node;
         }
         else
-        {
-            ptr=start;
-            while(ptr->next!=NULL)
-            {
-                ptr=ptr->next;
-            }
-            ptr->next=nn;
+        { 
+            ptr = start;
+            while(ptr -> next != start)
+            ptr = ptr -> next;
+            ptr -> next = new_node;
+            new_node -> next = start;
         }
-        printf("Enter a no.");
-        scanf("%d",&data);
+    printf("\n Enter the data : ");
+    scanf("%d", &num);
     }
-    while(ptr->next!=NULL)
-    {
-        ptr=ptr->next;
-    }
-    ptr->next=start;
-    return start;  
+    return start;
 }
 
-struct node *display(struct node *)
+struct node *display(struct node *start)
 {
     struct node *ptr;
     ptr=start;
-    do
+    while(ptr -> next != start)
     {
-        printf("%d\n",ptr->data);
-        ptr=ptr->next;
-    }while(ptr!=start);
+        printf("\n %d", ptr -> data);
+        ptr = ptr -> next;
+    }
+    printf("\n %d\n", ptr -> data);
+    return start;
 }
 
 struct node *insert_beg(struct node *)
@@ -79,14 +75,13 @@ struct node *insert_beg(struct node *)
     scanf("%d",&data);
     nn=(struct node *)malloc(sizeof(struct node));
     nn->data=data;
-    nn->next=start;
-    
     while(ptr->next!=start)
     {
         ptr=ptr->next;
     }
+    ptr->next=nn;
+    nn->next=start;
     start=nn;
-    ptr->next=start;
     return start;
 }
 
@@ -154,19 +149,15 @@ struct node *insert_after(struct node *)
 }
 
 
-
-struct node *delete_beg(struct node *)
+struct node *delete_beg(struct node *start)
 {
     struct node *ptr;
-    ptr=start;
-    start=start->next;
-    free(ptr);
-    ptr=start;
-    while(ptr->next!=start)
-    {
-        ptr=ptr->next;
-    }
-    ptr->next=start;
+    ptr = start;
+    while(ptr -> next != start)
+    ptr = ptr -> next;
+    ptr -> next = start -> next;
+    free(start);
+    start = ptr -> next;
     return start;
 }
 
@@ -210,6 +201,7 @@ struct node *delete_before(struct node*)
     scanf("%d",&val);
     pp=start;
     ptr=start;
+    pop=ptr->next;
     if(start->data==val)
     {
         return start;
@@ -218,8 +210,8 @@ struct node *delete_before(struct node*)
     {
         pp=ptr;
         ptr=ptr->next;
+        pop=ptr->next;
     }
-    pop=ptr->next;
     pp->next=pop;
     free(ptr);
     return start;
@@ -243,17 +235,13 @@ struct node *delete_node(struct node *)
     return start;
 }
 
-struct node *delete_list(struct node *)
+struct node *delete_list(struct node *start)
 {
-    struct node *ptr,*pp;
-    pp=start;
-    do
-    {
-        ptr=start;  //same as delete_beg function
-        start=start->next;
-        pp=ptr;
-        free(ptr);
-    }while(pp->next!=start);
+    struct node *ptr;
+    ptr = start;
+    while(ptr -> next != start)
+    start = delete_end(start);
+    free(start);
     return start;
 }
 
@@ -320,6 +308,35 @@ void main()
     
 }
 
-
+/*
+struct node *delete_after(struct node *start)
+{
+struct node *ptr, *preptr;
+int val;
+printf("\n Enter the value after which the node has to deleted : ");
+scanf("%d", &val);
+ptr = start;
+preptr = ptr;
+while(preptr -> data != val)
+{
+preptr = ptr;
+ptr = ptr -> next;
+}
+preptr -> next = ptr -> next;
+if(ptr == start)
+start = preptr -> next;
+free(ptr);
+return start;
+}
+struct node *delete_list(struct node *start)
+{
+struct node *ptr;
+ptr = start;
+while(ptr -> next != start)
+start = delete_end(start);
+free(start);
+return start;
+}
+*/
 
 
