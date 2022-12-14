@@ -1,5 +1,6 @@
 #include <stdio.h>
 #define MAX 10
+
 void breadth_first_search(int adj[][MAX], int visited[], int start)
 {
     int queue[MAX], rear = -1, front =- 1, i;
