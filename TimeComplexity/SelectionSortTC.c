@@ -30,7 +30,7 @@ void main()
     int n,a[10000];
     clock_t start_t, end_t;
     double total_t;
-    int rand(void);
+    //int rand(void);
     srand(time(0));
     FILE *fpt;
     fpt = fopen("SelectionSortTC.csv", "w+");
