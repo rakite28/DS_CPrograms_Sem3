@@ -28,6 +28,7 @@ void main()
                 {
                     j++;
                     b[j]=0;
+                    count=0;
                 }
                 i=k;
             }
